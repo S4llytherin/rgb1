@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çarpım Tablosu Girişi</title>
+</head>
+<body>
+    <label>Birinci sayıyı girin:</label>
+    <input type="number" id="sayi1" min="1" required>
+    
+    <label>İkinci sayıyı girin:</label>
+    <input type="number" id="sayi2" min="1" required>
+
+    <button onclick="gonder()">Oluştur</button>
+
+    <script>
+        function gonder() {
+            var s1 = document.getElementById("sayi1").value;
+            var s2 = document.getElementById("sayi2").value;
+            if (s1 >= 1 && s2 >= 1) {
+                window.location.href = "rgb.php?sayi1=" + s1 + "&sayi2=" + s2;
+            } else {
+                alert("Lütfen 1 veya daha büyük sayılar girin!");
+            }
+        }
+    </script>
+</body>
+</html>
