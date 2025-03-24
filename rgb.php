@@ -1,32 +1,36 @@
 <?php
-session_start();
+session_start(); // Oturumu başlat
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sayi1"]) && isset($_POST["sayi2"])) {
-    $sayi1 = intval($_POST["sayi1"]);
-    $sayi2 = intval($_POST["sayi2"]);
+// Hata raporlamayı aç
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    if ($sayi1 < 1 || $sayi2 < 1) {
-        $_SESSION["sonuc"] = "<p>Lütfen 1 veya daha büyük sayılar girin.</p>";
-    } else {
-        $tablo = "<table>";
+// Formdan gelen sayıları al
+if (isset($_POST['sayi1']) && isset($_POST['sayi2'])) {
+    $sayi1 = intval($_POST['sayi1']); // Güvenlik için int'e çevir
+    $sayi2 = intval($_POST['sayi2']);
+
+    if ($sayi1 > 0 && $sayi2 > 0) {
+        $sonuc = "<table>";
         for ($i = 1; $i <= $sayi1; $i++) {
-            $tablo .= "<tr>";
+            $sonuc .= "<tr>";
             for ($j = 1; $j <= $sayi2; $j++) {
-                $r = rand(0, 255);
-                $g = rand(0, 255);
-                $b = rand(0, 255);
-                $tablo .= "<td style='background-color: rgb($r, $g, $b);'>";
-                $tablo .= "$i × $j = " . ($i * $j);
-                $tablo .= "</td>";
+                $sonuc .= "<td>" . ($i * $j) . "</td>";
             }
-            $tablo .= "</tr>";
+            $sonuc .= "</tr>";
         }
-        $tablo .= "</table>";
+        $sonuc .= "</table>";
 
-        $_SESSION["sonuc"] = $tablo;
+        // Sonucu oturum değişkenine ata
+        $_SESSION['sonuc'] = $sonuc;
+    } else {
+        $_SESSION['sonuc'] = "Lütfen geçerli sayılar girin.";
     }
+} else {
+    $_SESSION['sonuc'] = "Eksik veri gönderildi.";
 }
 
+// Ana sayfaya geri yönlendir
 header("Location: index.html");
 exit();
 ?>
