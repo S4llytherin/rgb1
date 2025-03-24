@@ -1,4 +1,10 @@
 <?php
+// 405 hatasını önlemek için sadece POST isteklerini kabul et
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    http_response_code(405);
+    die("405 - Bu sayfa sadece POST yöntemiyle çalışır.");
+}
+
 session_start(); // Oturumu başlat
 
 // Hata raporlamayı aç
