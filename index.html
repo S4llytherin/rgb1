@@ -40,7 +40,10 @@
             for (let i = 1; i <= sayi1; i++) {
                 table += "<tr>";
                 for (let j = 1; j <= sayi2; j++) {
-                    table += `<td>${i * j}</td>`;
+                    let r = Math.floor(Math.random() * 256);
+                    let g = Math.floor(Math.random() * 256);
+                    let b = Math.floor(Math.random() * 256);
+                    table += `<td style='background-color: rgb(${r},${g},${b});'>${i * j}</td>`;
                 }
                 table += "</tr>";
             }
