@@ -25,29 +25,43 @@
             margin-bottom: 10px;
         }
     </style>
+    <script>
+        function olustur() {
+            let sayi1 = parseInt(document.getElementById("sayi1").value);
+            let sayi2 = parseInt(document.getElementById("sayi2").value);
+            let sonucDiv = document.getElementById("sonuc");
+            
+            if (isNaN(sayi1) || isNaN(sayi2) || sayi1 <= 0 || sayi2 <= 0) {
+                sonucDiv.innerHTML = "Lütfen geçerli sayılar girin.";
+                return;
+            }
+
+            let table = "<table>";
+            for (let i = 1; i <= sayi1; i++) {
+                table += "<tr>";
+                for (let j = 1; j <= sayi2; j++) {
+                    table += `<td>${i * j}</td>`;
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+
+            sonucDiv.innerHTML = table;
+        }
+    </script>
 </head>
 <body>
-
-    <form method="POST" action="/rgb.php">
+    <form type="button" onsubmit="event.preventDefault(); olustur();">
         <label>Birinci sayıyı girin:</label>
-        <input type="number" name="sayi1" min="1" required>
+        <input type="number" id="sayi1" min="1" required>
         
         <label>İkinci sayıyı girin:</label>
-        <input type="number" name="sayi2" min="1" required>
+        <input type="number" id="sayi2" min="1" required>
 
         <button type="submit">Oluştur</button>
     </form>
 
     <hr>
-
-    <!-- PHP'den gelen sonucu burada göstereceğiz -->
-    <?php
-    session_start();
-    if (isset($_SESSION["sonuc"])) {
-        echo $_SESSION["sonuc"];
-        unset($_SESSION["sonuc"]); // Sonuç bir kez gösterildikten sonra temizlenir
-    }
-    ?>
-
+    <div id="sonuc"></div>
 </body>
 </html>
